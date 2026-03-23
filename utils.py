@@ -1,5 +1,6 @@
 import sys, time, os
 from ascii import ascii
+from locations import location
 
 def sprint(text, delay=0.005):
     for char in text:
@@ -40,3 +41,12 @@ def ask_confirmed_input(prompt, max_len=8):
                 break
             else:
                 sprint("Invalid option.")
+
+def show_location(shownlocation):
+    return location[shownlocation]["name"]
+
+def dialogueOption(*options):
+    for i, option in enumerate(options, start=1):
+        print(f"{i}. {option}")
+    chosen = input().lower().strip()
+    return chosen

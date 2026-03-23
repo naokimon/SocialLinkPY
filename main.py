@@ -55,4 +55,5 @@ def mainmenu():
             case _:
                 print("Invalid option")
 
-mainmenu()
+if __name__ == "__main__":
+    mainmenu()
