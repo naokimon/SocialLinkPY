@@ -32,17 +32,17 @@ def intro():
     return player
 
 
-def opening_cutscene():
+def opening_cutscene(player):
 
     for speaker, line in openingCutsceneDialogue[:15]:
         charprint(speaker, line, pause=True)
     charprint("mariewohat", ('''"You dropped this."\n''' + '''She kneels down and grabs the note. She hands it to you.'''), pause=False)
     chosen = dialogueOption('"Thank you."', '''"It's not mine."''')
     while True:
-        if "thank you" or "1" in chosen:
+        if chosen in ["thank you", "1"]:
             charprint("mariewohat", ('''"Whatever. All I did was pick it up."\n''' + '''> It's the note you made for yourself with Dojima's address...'''), pause=True)
             break
-        elif "it's note mine" or "2" in chosen:
+        elif chosen in ["it's not mine", "2"]:
             charprint("mariewohat", ('''"Well, take it anyway. I don't care."\n''' + '''> It's the note you made for yourself with Dojima's address...'''), pause=True)
             break
         else:
@@ -66,6 +66,4 @@ def opening_cutscene():
 
     for speaker, line in openingCutsceneDialogue[37:41]:
         charprint(speaker, line, pause=True)
-
-
-opening_cutscene()
+    return player

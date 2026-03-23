@@ -48,6 +48,7 @@ def mainmenu():
                 with open(SAVE_PATH, "r") as f:
                     data = json.load(f)
                 player = Player.from_save(data["player"])
+                return player
                 break
             case "3" | "three":
                 sprint("Exiting game...")
@@ -55,5 +56,10 @@ def mainmenu():
             case _:
                 print("Invalid option")
 
+
 if __name__ == "__main__":
-    mainmenu()
+    player = mainmenu()
+    from game import opening_cutscene, game_loop
+    if player.current_day == 1 and player.current_time == "morning":
+        opening_cutscene(player)
+    game_loop(player)
