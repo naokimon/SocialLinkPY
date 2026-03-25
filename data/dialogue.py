@@ -1,7 +1,10 @@
 from player import Player
 
-roomDescriptions = {
-    "The Velvet Room": "You find yourself in a strange blue limousine. There is a man with a long nose sitting infront of you, next to him there seems to be a woman on his left."
+commandlist = {
+    "Help": "List all commands",
+    "Actions": "List all actions on your location.",
+    "Shops": "List all available shops on your location.",
+    "Clear": "Clear  screen of all commands."
 }
 
 introDialogue = [
@@ -71,11 +74,11 @@ openingCutsceneDialogue = [
     ("dojima", '''"Well then... Let's get going."'''),
     ("dojima", '''"My car's over there."\n'''
                '''As you walk to the car an unfamiliar girl walks in front of you. You drop a note while walking past her.'''),
-    ("mariewohat", '''"...Hey."'''),
-    ("mariewohat", '''"You dropped this."\n'''
+    ("unfriendlylookinggirl", '''"...Hey."'''),
+    ("unfriendlylookinggirl", '''"You dropped this."\n'''
                     '''She kneels down and grabs the note. She hands it to you.'''),
-    ("mariewohat", '''"......"\n'''
-                    '''You put the note back in your pocket. The unfriendly looking girl walks away'''),
+    ("unfriendlylookinggirl", '''"......"\n'''
+                    '''You put the note back in your pocket. The unfriendly looking girl walks away.'''),
     ("dojima", '''"What's wrong?"\n'''
                     '''Dojima yells from the car. You quickly hurry towards it.\n'''
                         '''> You got in the car and header for Dojima's house.'''),
@@ -83,21 +86,22 @@ openingCutsceneDialogue = [
                         '''The gas station attendant sprints towards the car.'''),
     ("dojima", '''"Can you go to the bathroom by yourself?"'''),
     ("nanako", '''"Uh-huh."\n'''
-                    '''"Nanako and Dojima both step out of the car. Dojima talks to the gas station attendant while Nanako is looking around aimlessly for the bathroom. The gas station attendant notices."'''),
+                    '''Nanako and Dojima both step out of the car. Dojima talks to the gas station attendant while Nanako is looking around aimlessly for the bathroom. The gas station attendant seems to notice.'''),
     ("attendant", '''"It's in the back, to your left. You know which way's left? The side you don't hold your chopsticks in."'''),
     ("nanako", '''"I know... Geez..."\n'''
-                    "Nanako says as she looks annoyed. You too now step out of the car to stretch your legs"),
+                    "Nanako says as she looks annoyed. You too now step out of the car to stretch your legs."),
     ("attendant", '''"Are you taking a trip?"'''),
     ("dojima", '''"No, we just went to pick him up. He just moved here from the big city."'''),
     ("attendant", '''"The city, huh...?"'''),
-    ("dojima", ''"Fill up my car while you're at it. Regular's fine"''),
-    ("attendant", "''Right away, Sir!\n"''),
-    ("dojima", '''"Good a time as any for a smoke..."'''),
+    ("dojima", '''"Fill up my car while you're at it. Regular's fine"'''),
+    ("attendant", '''"Right away, Sir!\n"'''),
+    ("dojima", '''"Good a time as any for a smoke..."\n'''
+                        "Dojima steps away from the car to light his cigarette."),
     ("attendant", '''"Are you in high school?\n"'''
-                    "You look confused at the gas station attendant."''),
+                    "You look confused at the gas station attendant."),
     ("attendant", '''"Does it surprise a city boy to see how little there is out here?"'''),
-    ("attendant", ''"There's a so little to do, I'm sure you'll get bored fast. You'll either be hanging out with your friends or doing part-time jobs."'''),
-    ("attendant", ''"Speaking of which, we're actually looking for part time help right now.\n"'''
+    ("attendant", '''"There's so little to do, I'm sure you'll get bored fast. You'll either be hanging out with your friends or doing part-time jobs."'''),
+    ("attendant", '''"Speaking of which, we're actually looking for part time help right now.\n"'''
                     "The gas station attendant walks closer towards you."),
     ("attendant", '''"Give it some thought, why don't you? We don't mind if you're a student."\n'''
                         "You shake his hand. You continue talking until Nanako runs back from the bathroom."),
@@ -114,4 +118,22 @@ openingCutsceneDialogue = [
     ("dojima", '''"I'll wait here."'''),
     ("dojima", '''"The shopping district is near the house, so you should get to know where all the stores are."'''),
     ("help", '''"Examine the blue butterfly to save your progress."''')
+]
+
+centralsdsouthintro = [
+    ("Lazy Student", '''"Damn... The next bus isn't going to come for a while. And if you miss one bus, you're pretty screwed."'''),
+    ("Lazy Student", '''"If only I had a motorbike, I could go anywhere I wanted, anytime I wanted."'''),
+    ("Lazy Student", '''"I wonder how much they cost... Maybe I'll be able to buy myself one."'''),
+    ("unfriendlylookinggirl", '''"Hm...? Have we met before?"'''),
+    ("unfriendlylookinggirl", '''"Just now...? Hmm, okay."'''),
+    ("unfriendlylookinggirl", '''"......"'''),
+    ("unfriendlylookinggirl", '''> The girl is thinking to herself...'''),
+    ("unfriendlylookinggirl", '''"Hm... I see."'''),
+    ("unfriendlylookinggirl", '''"The station...? Oh, that one time."'''),
+    ("unfriendlylookinggirl", '''"...Nothing I just went."'''),
+    ("unfriendlylookinggirl", '''"...I don't have anywhere to go."'''),
+    ("unfriendlylookinggirl", '''"......"'''),
+    ("nanako", '''"Uh..."'''),
+    ("nanako", '''"...Are you okay?"'''),
+    ("nanako", '''> Nanako seems worried about you...''')
 ]

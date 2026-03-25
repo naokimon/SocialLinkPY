@@ -1,10 +1,8 @@
 from player import Player
-from ascii import ascii
+from data.ascii import ascii
 from utils import sprint, cls
 import json
-import os
-
-SAVE_PATH = os.path.join(os.path.dirname(__file__), "save_file.json")
+from config import SAVE_PATH
 
 def mainmenu():
     while True:
@@ -59,7 +57,6 @@ def mainmenu():
 
 if __name__ == "__main__":
     player = mainmenu()
-    from game import opening_cutscene, game_loop
+    from game import opening_cutscene
     if player.current_day == 1 and player.current_time == "morning":
         opening_cutscene(player)
-    game_loop(player)
