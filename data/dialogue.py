@@ -137,3 +137,7 @@ centralsdsouthintro = [
     ("nanako", '''"...Are you okay?"'''),
     ("nanako", '''> Nanako seems worried about you...''')
 ]
+
+dojimasresidenceintro = [
+
+]

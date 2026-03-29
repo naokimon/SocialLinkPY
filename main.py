@@ -43,10 +43,8 @@ def mainmenu():
                     else:
                         print("Invalid option")
             case "2" | "two":
-                with open(SAVE_PATH, "r") as f:
-                    data = json.load(f)
-                player = Player.from_save(data["player"])
-                return player
+                from game import loadgame
+                loadgame()
                 break
             case "3" | "three":
                 sprint("Exiting game...")

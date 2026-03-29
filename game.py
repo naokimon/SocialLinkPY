@@ -1,7 +1,5 @@
-from textwrap import indent
-
 from player import Player
-from utils import cls, sprint, charprint, ask_confirmed_input, dialogueOption, displayStatusDay1, helpCommand, npcprint, saveGame
+from utils import cls, sprint, charprint, ask_confirmed_input, dialogueOption, displayStatusDay1, helpCommand, npcprint, saveGame, idprint
 from data.dialogue import introDialogue, openingCutsceneDialogue, centralsdsouthintro
 from data.locations import location
 from main import SAVE_PATH
@@ -29,7 +27,8 @@ def intro():
 
 
 def opening_cutscene(player):
-    player = Player(first_name=player.first_name, last_name=player.last_name, current_location="yasoinaba_station")
+    player.current_location = "yasoinaba_station"
+    player.current_time = "Afternoon"
     for speaker, line in introDialogue[23:]:
         charprint(speaker, line, pause=True)
     for speaker, line in openingCutsceneDialogue[:15]:
@@ -68,7 +67,7 @@ def opening_cutscene(player):
     return player
 
 def firstday(player):
-    player = Player(first_name=player.first_name, last_name=player.last_name, current_location="central_sd_south_intro", current_time="Afternoon")
+    player.current_location = "central_sd_south_intro"
     current = location[player.current_location]
     displayStatusDay1(player, player.current_location, player.current_time)
     while True:
@@ -85,19 +84,20 @@ def firstday(player):
                 print("Type in the shop name to enter and check it out!")
             case clear if clear in ["cls", "clear"]:
                 cls()
-                firstday(player)
+                displayStatusDay1(player, player.current_location, player.current_time)
             case shop if shop in current["shops"]:
                 shop_info = current["shops"][shop]
                 print(f'{shop.title()}: {shop_info["description"]}')
             case dojima if dojima in ["dojima", "talk to dojima"]:
                 cls()
                 charprint("dojima", "How're you feeling? Ready to get back in the car?", pause=False)
-                chosen = dialogueOption('''"I'm ready."''', '''"Not yet..."''').lower().strip()
                 ready = False
                 while True:
+                    chosen = dialogueOption('''"I'm ready."''', '''"Not yet..."''').lower().strip()
                     if chosen in ["i'm ready", "i'm ready.", "1"]:
                         ready = True
-                        charprint("dojima", "All right, let's hit the road then.")
+                        charprint("dojima", '''"All right, let's hit the road then."\n
+                                                All of you make your way back into the car to head back to Dojima's residence.''')
                         break
                     elif chosen in ["not yet...", "not yet", "2"]:
                         charprint("dojima", "I see. Well, I'll be waiting here.", pause=True)
@@ -108,54 +108,57 @@ def firstday(player):
                 else:
                     cls()
                     firstday(player)
-            case bus if bus.lower().strip() in ["wait at bus stop", "bus stop"]:
+            case bus if bus in ["wait at bus stop", "bus stop"]:
                 sprint(current["buildings"]["bus_stop"]["description"])
-            case lazystudent if lazystudent.lower().strip() in ["talk to lazy student", "lazy student"]:
+            case lazystudent if lazystudent in ["talk to lazy student", "lazy student"]:
                 for speaker, line in centralsdsouthintro[:3]:
                     npcprint(speaker, line, pause=True)
                 cls()
-                firstday(player)
-            case unfriendlygirl if unfriendlygirl.lower().strip() in ["talk to unfriendly looking girl", "unfriendly looking girl"]:
+                displayStatusDay1(player, player.current_location, player.current_time)
+            case unfriendlygirl if unfriendlygirl in ["talk to unfriendly looking girl", "unfriendly looking girl"]:
                 for speaker, line in centralsdsouthintro[3:4]:
                     charprint(speaker, line, pause=False)
-                chosen = dialogueOption('''"I met you just now."''', '''"What were you doing at the station?"''', '''"It's just your imagination."''')
                 while True:
+                    chosen = dialogueOption('''"I met you just now."''', '''"What were you doing at the station?"''', '''"It's just your imagination."''')
                     if chosen in ["i met you just now", "1", "i met you just now."]:
                         for speaker, line in centralsdsouthintro[4:7]:
                             charprint(speaker, line, pause=True)
                         cls()
-                        firstday(player)
+                        displayStatusDay1(player, player.current_location, player.current_time)
                         break
                     elif chosen in ["what were you doing at the station", "what were you doing at the station?", "2"]:
                         for speaker, line in centralsdsouthintro[8:12]:
                             charprint(speaker, line, pause=True)
                         cls()
-                        firstday(player)
+                        displayStatusDay1(player, player.current_location, player.current_time)
                         break
                     elif chosen in ["it's just your imagination", "it's just your imagination.", "3"]:
                         for speaker, line in centralsdsouthintro[7:8]:
                             charprint(speaker, line, pause=True)
                         cls()
-                        firstday(player)
+                        displayStatusDay1(player, player.current_location, player.current_time)
                         break
-            case nanako if nanako.lower().strip() in ["nanako", "talk to nanako"]:
+            case nanako if nanako in ["nanako", "talk to nanako"]:
                 for speaker, line in centralsdsouthintro[12:16]:
                     charprint(speaker, line, pause=True)
                 cls()
-                firstday(player)
-            case butterfly if butterfly.lower().strip() in ["butterfly", "touch the butterfly"]:
+                displayStatusDay1(player, player.current_location, player.current_time)
+            case butterfly if butterfly in ["butterfly", "touch the butterfly"]:
                 saveGame(player)
             case _:
                 print("Invalid option")
 
+    npcprint("naokimon", "Hey, thank you for playing this small little sneak peak/demo of social link! Make sure to star the project and follow me for more updates! If you find any bugs make sure to DM me about it on discord @naokimon", pause=True)
 
-def gameloop(player):
+
+
+def loadgame():
     with open(SAVE_PATH, "r") as f:
         data = json.load(f)
     player = Player.from_save(data["player"])
     if player.current_day == 1 and player.current_location == "velvet_room":
         opening_cutscene(player)
-    elif player.current_day == 1 and player.current_location == "central_sd_south_intro":
+    elif player.current_day == 1 and player.current_location in ["central_sd_south_intro", "dojimas_residence"]:
         firstday(player)
 
 
@@ -167,5 +170,5 @@ if __name__ == "__main__":
         current_time="Afternoon",
         current_location="velvet_room"
     )
-    gameloop(debug_player)
+    loadgame()
 

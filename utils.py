@@ -6,8 +6,9 @@ import json
 from config import SAVE_PATH
 import textwrap
 
-def sprint(text, delay=0.005):
-    for char in text:
+def sprint(text, delay=0.005, width=100):
+    wrapped = textwrap.fill(text, width)
+    for char in wrapped:
         sys.stdout.write(char)
         sys.stdout.flush()
         time.sleep(delay)
@@ -33,6 +34,12 @@ def npcprint(npc, dialogue, pause=True):
 def playerprint(prevcharacter, dialogue, pause=True):
     cls()
     print(ascii[prevcharacter])
+    sprint(dialogue, delay=0.05)
+    if pause:
+        input()
+
+def idprint(dialogue, pause=True):
+    cls()
     sprint(dialogue, delay=0.05)
     if pause:
         input()
